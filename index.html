@@ -25,11 +25,20 @@
             <div class="hero-rectangle animate-hero-fast">
                 <h1>Browse AI Image Prompts</h1>
                 <p>The ultimate repository for high-fidelity generative AI strings.</p>
+                
                 <div class="search-glow-container">
                     <div class="search-wrapper">
                         <input type="text" id="searchInput" placeholder="Search prompts...">
                         <button id="searchBtn">Search</button>
                     </div>
+                </div>
+
+                <div class="filter-container" id="filterContainer">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Cyberpunk">Cyberpunk</button>
+                    <button class="filter-btn" data-filter="Nature">Nature</button>
+                    <button class="filter-btn" data-filter="Abstract">Abstract</button>
+                    <button class="filter-btn" data-filter="Sci-Fi">Sci-Fi</button>
                 </div>
             </div>
         </section>
@@ -38,7 +47,7 @@
             <div class="container">
                 <div class="prompt-grid" id="promptGrid"></div>
                 <div id="noResults" style="display:none; text-align:center; padding: 50px 20px; color: #a0a0a0;">
-                    <p>No crates found matching your search.</p>
+                    <p>No crates found matching your selection.</p>
                 </div>
             </div>
         </section>
