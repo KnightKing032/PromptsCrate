@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupModalListeners() {
         document.querySelectorAll('.show-btn').forEach(btn => {
-            btn.onclick = (e) => {
+            btn.addEventListener('click', (e) => {
                 const title = e.target.closest('.prompt-card').getAttribute('data-title');
                 const data = library.find(item => item.title === title);
                 if(data) {
@@ -81,25 +81,26 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button id="copyBtn">Copy Prompt</button>
                     `;
                     modal.style.display = 'flex';
-                    document.getElementById('copyBtn').onclick = function() {
+                    document.getElementById('copyBtn').addEventListener('click', function() {
                         navigator.clipboard.writeText(data.prompt).then(() => {
                             this.innerText = "Copied!";
                             this.style.background = "#39ff14";
                             setTimeout(() => { this.innerText = "Copy Prompt"; this.style.background = ""; }, 2000);
                         });
-                    };
+                    });
                 }
-            };
+            });
         });
     }
 
-    // Restore Coming Soon logic
+    // Fixed "Coming Soon" for mobile
     document.querySelectorAll('.coming-soon').forEach(link => {
-        link.onclick = () => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
             modalTitle.innerText = "Coming Soon";
             modalContent.innerHTML = `<p style="color: #a0a0a0; margin: 20px 0;">We are currently building this feature. Check back later!</p>`;
             modal.style.display = 'flex';
-        };
+        });
     });
 
     searchInput.oninput = (e) => {
@@ -113,9 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
         noResults.style.display = (matches === 0) ? 'block' : 'none';
     };
 
-    document.getElementById('exploreLink').onclick = () => document.getElementById('cards-section').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('exploreLink').addEventListener('click', () => {
+        document.getElementById('cards-section').scrollIntoView({ behavior: 'smooth' });
+    });
+
     window.onscroll = () => backToTop.style.display = window.scrollY > 500 ? "block" : "none";
-    backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    
     document.querySelector('.close-btn').onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
 });
