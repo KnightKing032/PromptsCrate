@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const promptGrid = document.getElementById('promptGrid');
     const noResults = document.getElementById('noResults');
 
-    // DATABASE: Now with image numbers included
     const library = [
         { id: 1, title: "City Heights", model: "Midjourney v6.1", prompt: "Cyberpunk city drone shot, 8k, neon lights, rainy weather, ultra-detailed signage, reflection in puddles, cinematic lighting." },
         { id: 2, title: "Blue Skies", model: "DALL-E 3", prompt: "Ultra-wide landscape, sunny day, cinematic clouds, highly detailed photography, 8k resolution, serene mountain range." },
@@ -31,13 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 20, title: "Old Library", model: "DALL-E 3", prompt: "Dusty bookshelf with ancient glowing books, magical aura, floating dust particles, warm lighting, mystery." }
     ];
 
-    // --- WEEKLY SHUFFLE LOGIC ---
     function getWeekSeed() {
         const now = new Date();
         const startOfYear = new Date(now.getFullYear(), 0, 1);
         const pastDays = (now - startOfYear) / 86400000;
         const weekNum = Math.ceil((pastDays + startOfYear.getDay() + 1) / 7);
-        return now.getFullYear() + weekNum; // Unique number for every week
+        return now.getFullYear() + weekNum;
     }
 
     function seededShuffle(array, seed) {
@@ -51,10 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
-    // Shuffle the library based on the current week
     const weeklyLibrary = seededShuffle([...library], getWeekSeed());
 
-    // Function to render cards to the screen
     function renderCards(dataList) {
         promptGrid.innerHTML = '';
         dataList.forEach(item => {
@@ -62,29 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'prompt-card';
             card.setAttribute('data-title', item.title);
             card.innerHTML = `
-                <div class="card-image-wrapper">
-                    <img src="https://picsum.photos/400/400?random=${item.id}" alt="${item.title}">
-                </div>
-                <div class="card-content">
-                    <h3>${item.title}</h3>
-                    <button class="show-btn">Show Prompt</button>
-                </div>
+                <div class="card-image-wrapper"><img src="https://picsum.photos/400/400?random=${item.id}" alt="${item.title}"></div>
+                <div class="card-content"><h3>${item.title}</h3><button class="show-btn">Show Prompt</button></div>
             `;
             promptGrid.appendChild(card);
         });
-        setupModalListeners(); // Re-bind button clicks after rendering
+        setupModalListeners();
     }
 
-    // Initial Render
     renderCards(weeklyLibrary);
 
-    // --- BUTTON LOGIC ---
     function setupModalListeners() {
         document.querySelectorAll('.show-btn').forEach(btn => {
             btn.onclick = (e) => {
                 const title = e.target.closest('.prompt-card').getAttribute('data-title');
                 const data = library.find(item => item.title === title);
-                
                 if(data) {
                     modalTitle.innerText = title;
                     modalContent.innerHTML = `
@@ -93,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button id="copyBtn">Copy Prompt</button>
                     `;
                     modal.style.display = 'flex';
-
                     document.getElementById('copyBtn').onclick = function() {
                         navigator.clipboard.writeText(data.prompt).then(() => {
                             this.innerText = "Copied!";
@@ -106,7 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- OTHER UI LOGIC ---
+    // Restore Coming Soon logic
+    document.querySelectorAll('.coming-soon').forEach(link => {
+        link.onclick = () => {
+            modalTitle.innerText = "Coming Soon";
+            modalContent.innerHTML = `<p style="color: #a0a0a0; margin: 20px 0;">We are currently building this feature. Check back later!</p>`;
+            modal.style.display = 'flex';
+        };
+    });
+
     searchInput.oninput = (e) => {
         const query = e.target.value.toLowerCase();
         let matches = 0;
@@ -118,13 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
         noResults.style.display = (matches === 0) ? 'block' : 'none';
     };
 
-    document.getElementById('exploreLink').onclick = () => {
-        document.getElementById('cards-section').scrollIntoView({ behavior: 'smooth' });
-    };
-
-    window.onscroll = () => { backToTop.style.display = window.scrollY > 500 ? "block" : "none"; };
+    document.getElementById('exploreLink').onclick = () => document.getElementById('cards-section').scrollIntoView({ behavior: 'smooth' });
+    window.onscroll = () => backToTop.style.display = window.scrollY > 500 ? "block" : "none";
     backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
     document.querySelector('.close-btn').onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
 });
