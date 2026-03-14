@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let favorites = JSON.parse(localStorage.getItem('crateFavs')) || [];
 
     const library = [
-        { id: 1, title: "City Heights", category: "Cyberpunk", model: "Midjourney v6.1", prompt: "Cyberpunk city drone shot, 8k, neon lights, rainy weather, ultra-detailed signage, reflection in puddles, cinematic lighting." },
+        { id: 1, title: "City Heights", category: "Cyberpunk", model: "Midjourney v6.1", prompt: "Generate a hyper-realistic, cinematic photo of a UFC weigh-in event set inside the packed Barclays Center in Brooklyn, New York. The event features a surreal but intense face-off between Khabib Nurmagomedov and a towering 3-meter grizzly bear, both participating as official fighters. The crowd is roaring, fans holding flags, signs, and phones, media cameras flashing from all directions." },
         { id: 2, title: "Blue Skies", category: "Nature", model: "DALL-E 3", prompt: "Ultra-wide landscape, sunny day, cinematic clouds, highly detailed photography, 8k resolution, serene mountain range." },
         { id: 3, title: "Motion Blur", category: "Cyberpunk", model: "Stable Diffusion XL", prompt: "Neon light trails, high speed, long exposure photography, vibrant colors, futuristic highway, motion blur effect." },
         { id: 4, title: "Neon Abstract", category: "Abstract", model: "Midjourney v6", prompt: "Macro photography of bioluminescent fluid, green and cyan swirls, liquid motion, glowing abstract textures." },
