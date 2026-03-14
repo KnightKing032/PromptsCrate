@@ -39,7 +39,7 @@ body { background: var(--bg-black); color: white; font-family: 'Inter', sans-ser
 .hero-rectangle h1 { font-size: clamp(1.5rem, 8vw, 2.8rem); font-weight: 900; margin-bottom: 15px; line-height: 1.2; }
 .hero-rectangle p { color: var(--text-dim); margin-bottom: 30px; font-size: 0.9rem; }
 
-/* Search Bar */
+/* Search */
 .search-glow-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; padding: 2px; border-radius: 12px; overflow: hidden; background: #111; }
 .search-glow-container::before {
     content: ''; position: absolute; width: 250%; height: 250%; top: -75%; left: -75%;
@@ -62,16 +62,18 @@ body { background: var(--bg-black); color: white; font-family: 'Inter', sans-ser
 .card-image-wrapper { width: 100%; height: 180px; overflow: hidden; background: #222; }
 .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 .card-content { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-.card-content h3 { font-size: 1.1rem; margin-bottom: 10px; }
 .show-btn { width: 100%; background: transparent; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; cursor: pointer; }
 
-/* Modal */
+/* Modal - Long Prompt Ready */
 .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 15px; }
 .modal-box { background: #181818; padding: 25px; border-radius: 18px; max-width: 500px; width: 100%; position: relative; border: 1px solid #333; text-align: center; }
 .close-btn { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.5rem; color: #888; }
+
 .prompt-container { 
     background: #000; padding: 15px; border-radius: 8px; margin-top: 10px; 
-    max-height: 250px; overflow-y: auto; text-align: left;
+    max-height: 300px; /* Limits height on mobile */
+    overflow-y: auto; /* Makes big prompts scrollable */
+    text-align: left;
 }
 #promptDisplay { font-family: monospace; font-size: 0.85rem; color: #ddd; white-space: pre-wrap; word-break: break-word; }
 #copyBtn { width: 100%; margin-top: 15px; padding: 12px; background: var(--cyan-accent); border: none; font-weight: 700; border-radius: 6px; cursor: pointer; }
@@ -81,16 +83,13 @@ body { background: var(--bg-black); color: white; font-family: 'Inter', sans-ser
 
 .footer { text-align: center; padding: 50px 0; border-top: 1px solid #1a1a1a; font-size: 0.8rem; color: var(--text-dim); }
 
-/* MOBILE RESPONSIVE FIXES */
+/* MOBILE FIXES */
 @media (max-width: 600px) {
     .header-flex { flex-direction: column; justify-content: center; text-align: center; gap: 10px; }
     .nav-links { width: 100%; justify-content: center; }
-    .hero-container { padding: 20px 10px; }
     .hero-rectangle { padding: 30px 15px; border-radius: 16px; }
-    .hero-rectangle h1 { font-size: 1.6rem; }
-    .hero-rectangle p { font-size: 0.8rem; }
-    .search-wrapper input { padding: 12px; font-size: 0.85rem; }
+    .hero-rectangle h1 { font-size: 1.7rem; }
     .prompt-grid { grid-template-columns: 1fr; padding: 0 10px; }
-    .prompt-card { min-height: auto; }
     .modal-box { width: 95%; padding: 20px 15px; }
+    .prompt-container { max-height: 250px; } /* Slightly shorter for smaller phones */
 }
