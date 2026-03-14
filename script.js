@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // DATABASE: Updated with local image paths
     const library = [
-        { id: 1, title: "City Heights", category: "Cyberpunk", model: "Lexica Aperture", image: "img1.jpg", prompt: "Generate a hyper-realistic, cinematic photo of a ufc weigh-in event set inside the packed barclays center in brooklyn, new york. the event features a surreal but intense face-off between khabib nurmagomedov and a towering 3-meter grizzly bear, both participating as official fighters. the crowd is roaring, fans holding flags, signs, and phones, media cameras flashing from all directions.
+        { id: 1, title: "City Heights", category: "Cyberpunk", model: "Lexica Aperture", image: "images/img1.jpg", prompt: "Generate a hyper-realistic, cinematic photo of a ufc weigh-in event set inside the packed barclays center in brooklyn, new york. the event features a surreal but intense face-off between khabib nurmagomedov and a towering 3-meter grizzly bear, both participating as official fighters. the crowd is roaring, fans holding flags, signs, and phones, media cameras flashing from all directions.
 
 " },
         { id: 2, title: "Blue Skies", category: "Nature", model: "DALL-E 3", image: "images/blue_skies.jpg", prompt: "Ultra-wide landscape, sunny day, cinematic clouds, highly detailed photography, 8k resolution, serene mountain range." },
