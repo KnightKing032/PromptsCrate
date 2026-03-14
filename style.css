@@ -23,7 +23,7 @@ body { background: var(--bg-black); color: white; font-family: 'Inter', sans-ser
 .nav-box {
     text-decoration: none; color: white; font-size: 0.75rem; padding: 6px 12px;
     border: 1px solid #222; border-radius: 6px; transition: 0.3s; cursor: pointer;
-    white-space: nowrap;
+    white-space: nowrap; -webkit-tap-highlight-color: transparent;
 }
 .nav-box:hover { border-color: var(--cyan-accent); color: var(--cyan-accent); }
 
@@ -60,7 +60,7 @@ body { background: var(--bg-black); color: white; font-family: 'Inter', sans-ser
 .card-content { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
 .show-btn { width: 100%; background: transparent; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; cursor: pointer; }
 
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 15px; }
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; align-items: center; justify-content: center; padding: 15px; }
 .modal-box { background: #181818; padding: 25px; border-radius: 18px; max-width: 500px; width: 100%; position: relative; border: 1px solid #333; text-align: center; }
 .close-btn { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.5rem; color: #888; }
 .prompt-container { 
