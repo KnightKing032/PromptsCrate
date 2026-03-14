@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const promptGrid = document.getElementById('promptGrid');
     const noResults = document.getElementById('noResults');
 
-    // Updated Library with Category Field
+    // Get favorites from LocalStorage
+    let favorites = JSON.parse(localStorage.getItem('crateFavs')) || [];
+
     const library = [
         { id: 1, title: "City Heights", category: "Cyberpunk", model: "Midjourney v6.1", prompt: "Cyberpunk city drone shot, 8k, neon lights, rainy weather, ultra-detailed signage, reflection in puddles, cinematic lighting." },
         { id: 2, title: "Blue Skies", category: "Nature", model: "DALL-E 3", prompt: "Ultra-wide landscape, sunny day, cinematic clouds, highly detailed photography, 8k resolution, serene mountain range." },
@@ -57,11 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCards(dataList) {
         promptGrid.innerHTML = '';
         dataList.forEach(item => {
+            const isFav = favorites.includes(item.id);
             const card = document.createElement('div');
             card.className = 'prompt-card';
+            card.setAttribute('data-id', item.id);
             card.setAttribute('data-title', item.title);
             card.setAttribute('data-category', item.category);
             card.innerHTML = `
+                <button class="fav-btn ${isFav ? 'is-fav' : ''}" title="Favorite">❤</button>
                 <div class="model-badge">${item.model}</div>
                 <div class="card-image-wrapper"><img src="https://picsum.photos/400/400?random=${item.id}" alt="${item.title}"></div>
                 <div class="card-content"><h3>${item.title}</h3><button class="show-btn">Show Prompt</button></div>
@@ -69,16 +74,37 @@ document.addEventListener('DOMContentLoaded', () => {
             promptGrid.appendChild(card);
         });
         setupModalListeners();
+        setupFavListeners();
     }
 
     renderCards(weeklyLibrary);
+
+    function setupFavListeners() {
+        document.querySelectorAll('.fav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = e.target.closest('.prompt-card');
+                const id = parseInt(card.getAttribute('data-id'));
+                
+                if (favorites.includes(id)) {
+                    favorites = favorites.filter(favId => favId !== id);
+                    btn.classList.remove('is-fav');
+                } else {
+                    favorites.push(id);
+                    btn.classList.add('is-fav');
+                }
+                
+                localStorage.setItem('crateFavs', JSON.stringify(favorites));
+                if (currentFilter === 'favorites') filterAndSearch();
+            });
+        });
+    }
 
     // --- Filter Logic ---
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
-            
             currentFilter = e.target.getAttribute('data-filter');
             filterAndSearch();
         });
@@ -89,11 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let matches = 0;
 
         document.querySelectorAll('.prompt-card').forEach(card => {
+            const id = parseInt(card.getAttribute('data-id'));
             const title = card.getAttribute('data-title').toLowerCase();
             const category = card.getAttribute('data-category');
             
             const matchesSearch = title.includes(query);
-            const matchesFilter = (currentFilter === 'all' || category === currentFilter);
+            let matchesFilter = false;
+
+            if (currentFilter === 'all') matchesFilter = true;
+            else if (currentFilter === 'favorites') matchesFilter = favorites.includes(id);
+            else matchesFilter = (category === currentFilter);
 
             if (matchesSearch && matchesFilter) {
                 card.style.display = 'flex';
@@ -107,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchInput.oninput = filterAndSearch;
 
-    // --- UI Listeners ---
+    // --- UI Listeners (Modal/Coming Soon/Scroll) ---
     function setupModalListeners() {
         document.querySelectorAll('.show-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -137,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             modalTitle.innerText = "Coming Soon";
-            modalContent.innerHTML = `<p style="color: #a0a0a0; margin: 20px 0;">Feature in progress!</p>`;
+            modalContent.innerHTML = `<p style="color: #a0a0a0; margin: 20px 0;">We are currently building this feature!</p>`;
             modal.style.display = 'flex';
         });
     });
