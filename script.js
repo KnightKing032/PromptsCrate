@@ -11,33 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // DATABASE: Updated with local image paths
     const library = [
-        { 
-            id: 1, 
-            title: "City Heights", 
-            category: "Cyberpunk", 
-            model: "Lexica Aperture", 
-            image: "images/img1.jpg", 
-            prompt: `Generate a hyper-realistic, cinematic photo of a ufc weigh-in event set inside the packed barclays center in brooklyn, new york. the event features a surreal but intense face-off between khabib nurmagomedov and a towering 3-meter grizzly bear, both participating as official fighters. the crowd is roaring, fans holding flags, signs, and phones, media cameras flashing from all directions.` 
-        },
-        { id: 2, title: "Blue Skies", category: "Nature", model: "DALL-E 3", image: "images/blue_skies.jpg", prompt: "Ultra-wide landscape, sunny day, cinematic clouds, highly detailed photography, 8k resolution, serene mountain range." },
-        { id: 3, title: "Motion Blur", category: "Cyberpunk", model: "Stable Diffusion XL", image: "images/motion_blur.jpg", prompt: "Neon light trails, high speed, long exposure photography, vibrant colors, futuristic highway, motion blur effect." },
-        { id: 4, title: "Neon Abstract", category: "Abstract", model: "Midjourney v6", image: "images/neon_abstract.jpg", prompt: "Macro photography of bioluminescent fluid, green and cyan swirls, liquid motion, glowing abstract textures." },
-        { id: 5, title: "Cyber Orchid", category: "Sci-Fi", model: "DALL-E 3", image: "images/cyber_orchid.jpg", prompt: "Mechanical flower with glowing glass petals, intricate wiring, macro shot, bioluminescent parts, black background." },
-        { id: 6, title: "Space Forest", category: "Sci-Fi", model: "Midjourney v6.1", image: "images/space_forest.jpg", prompt: "Nebula forest, stars as leaves, ethereal lighting, cosmic atmosphere, fantasy environment, glowing flora." },
-        { id: 7, title: "Desert Oasis", category: "Nature", model: "DALL-E 3", image: "images/desert_oasis.jpg", prompt: "Futuristic mirror oasis in sand dunes, sunset lighting, golden hour, reflective surfaces, high contrast." },
-        { id: 8, title: "Steampunk Gear", category: "Sci-Fi", model: "Stable Diffusion XL", image: "images/steampunk_gear.jpg", prompt: "Intricate brass clockwork mechanism, 8k macro, copper pipes, steam vapor, cinematic lighting, mechanical depth." },
-        { id: 10, title: "Deep Sea", category: "Nature", model: "DALL-E 3", image: "images/deep_sea.jpg", prompt: "Bioluminescent jellyfish in the abyss, deep blue lighting, floating particles, underwater photography, ethereal glow." },
-        { id: 11, title: "Retro Future", category: "Cyberpunk", model: "Midjourney v6.1", image: "images/retro_future.jpg", prompt: "80s synthwave car driving on a digital grid, neon sunset, retro-futurism style, vibrant pink and purple tones." },
-        { id: 12, title: "Emerald Valley", category: "Nature", model: "DALL-E 3", image: "images/emerald_valley.jpg", prompt: "Lush green fantasy valley, waterfall, morning mist, vibrant vegetation, magical atmosphere, ultra-detailed." },
-        { id: 13, title: "Mecha Warrior", category: "Sci-Fi", model: "Stable Diffusion XL", image: "images/mecha_warrior.jpg", prompt: "Giant robot standing in a ruined city, realistic textures, battle-worn armor, smoke and debris, cinematic shot." },
-        { id: 14, title: "Golden Ratio", category: "Abstract", model: "Midjourney v6", image: "images/golden_ratio.jpg", prompt: "Perfect spiral of golden seeds in a sunflower, macro photography, mathematical symmetry, sharp detail." },
-        { id: 15, title: "Vintage Portrait", category: "Abstract", model: "DALL-E 3", image: "images/vintage_portrait.jpg", prompt: "1920s film style portrait, grainy texture, dramatic shadows, vintage lighting, classic photography style." },
-        { id: 16, title: "Crystal Cave", category: "Nature", model: "Midjourney v6.1", image: "images/crystal_cave.jpg", prompt: "Glowing purple crystals in a dark cavern, sharp focus, magical aura, geological formations, subterranean light." },
-        { id: 17, title: "Magma Flow", category: "Nature", model: "DALL-E 3", image: "images/magma_flow.jpg", prompt: "Close up of molten lava, orange glow, obsidian crust, volcanic activity, heat haze, intense colors." },
-        { id: 18, title: "Cloud Kingdom", category: "Sci-Fi", model: "Midjourney v6", image: "images/cloud_kingdom.jpg", prompt: "Floating castles in the sky, white fluffy clouds, heavenly lighting, fantasy architecture, wide angle shot." },
-        { id: 19, title: "Neon Jungle", category: "Cyberpunk", model: "Stable Diffusion XL", image: "images/neon_jungle.jpg", prompt: "Fluorescent tropical plants, glowing vines, dark jungle, exotic flora, vivid neon colors, nighttime forest." },
-        { id: 20, title: "Old Library", category: "Abstract", model: "DALL-E 3", image: "images/old_library.jpg", prompt: "Dusty bookshelf with ancient glowing books, magical aura, floating dust particles, warm lighting, mystery." }
-    ];
+  {
+    id: 1,
+    title: "Portfolio",
+    category: "Personal",
+    tags: "clean minimal dark",
+    preview: "images/portfolio-preview.jpg",
+    fields: [
+      { label: "Your name", key: "name", placeholder: "e.g. Aryan Sharma" },
+      { label: "Job title", key: "title", placeholder: "e.g. Web Developer" },
+      { label: "About you", key: "about", placeholder: "Short bio..." },
+    ],
+    generate: (data) => `<!DOCTYPE html>
+<html>...your portfolio HTML with ${data.name} injected...</html>`
+  },
+  // more templates...
+];
 
     let currentFilter = 'all';
 
